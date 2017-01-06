@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AdtSaper</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_log_in">Zaloguj</string>
+    <string name="Ok">Ok</string>
+    <string name="UserName">Nazwa użytkownika</string>
+    <string name="Password">Hasło</string>
+    <string name="DoLogin">Zaloguj</string>
+    <string name="title_activity_game_settings">GameSettingsActivity</string>
+    <string name="NewGameSettings">Wybierz ustawienia gry</string>
+    <string name="Width">Szerokość</string>
+    <string name="Height">Wysokość</string>
+    <string name="BombCount">Ilość bomb</string>
+    <string name="adtSaper">AndroidSaper</string>
+    <string name="NewGameBtn">Nowa gra</string>
+    <string name="JoinGame">Dołącz do gry</string>
+    <string name="NewMultiGamne">Nowa gra sieciowa</string>
+    <string name="BackToGame">Powrót do gry</string>
+    <string name="title_activity_multi">Multi</string>
+    <string name="title_activity_multi_game">MultiGameActivity</string>
+    <string name="ConnectionSettings">Ustawienia połączenia</string>
+    <string name="ServerName">IP serwera</string>
+    <string name="Port">Port</string>
+
+</resources>

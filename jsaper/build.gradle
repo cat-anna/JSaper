@@ -1,0 +1,23 @@
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':sapercore')
+    compile files('libs/jfreechart-1.0.19.jar')
+    compile files('libs/gluegen-rt.jar')
+    compile files('libs/joal.jar')
+    compile files('libs/jocl.jar')
+    compile files('libs/jogl-all.jar')
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+
+dependencies {
+    compile name: 'jfreechart-1.0.19'
+    compile name: 'jogl-all'
+}
