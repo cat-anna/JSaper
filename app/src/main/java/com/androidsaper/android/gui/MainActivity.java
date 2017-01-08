@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
 	final static protected int JoinGameRequest = 30;
 
 	protected void onNewGameClick(View arg0) {
-		Intent intent = new Intent(this, GameSettingsActivity.class);
+		Intent intent = new Intent(this, GameLevelSelection.class);
 		startActivityForResult(intent, NewGameRequest);
 	}
 
@@ -69,15 +69,14 @@ public class MainActivity extends Activity {
 			finish();
 			break;
 		}
-		
-		
+
 		case CreateGameRequest: {
 			Intent intent = new Intent(this, MultiGameActivity.class);
 			startActivityForResult(intent, CreateGameRequest+1);
 			break;
 		}
 		case CreateGameRequest+1: {
-			data.setClass(this, GameSettingsActivity.class);
+			data.setClass(this, GameLevelSelection.class);
 			startActivityForResult(data, CreateGameRequest+2);
 			break;
 		}

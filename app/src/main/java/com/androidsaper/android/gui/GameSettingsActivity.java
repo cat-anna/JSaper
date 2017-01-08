@@ -33,7 +33,7 @@ public class GameSettingsActivity extends Activity {
 							h = Integer.parseInt(etHeight.getText().toString());
 							b = Integer.parseInt(etBombCount.getText().toString());
 						} catch (Exception e) {
-							Toast.makeText(GameSettingsActivity.this, "Wpisz poprawne dane", Toast.LENGTH_SHORT).show();
+							Toast.makeText(GameSettingsActivity.this, "Enter correct data", Toast.LENGTH_SHORT).show();
 							return;
 						}
 						Intent returnIntent = getIntent();//new Intent();

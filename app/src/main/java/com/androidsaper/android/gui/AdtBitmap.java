@@ -20,7 +20,7 @@ public class AdtBitmap implements DrawableSpriteTexture {
 	public void Render(GUIRenderer Renderer, int x, int y, int w, int h, byte[] indexes) {
 		for(int i = 0; i < indexes.length; ++i) {
 			Render(Renderer, x, y, w, h, indexes[i]);
-			x += texture.getWidth();
+			x += w;//texture.getWidth();
 		}
 	}
 	

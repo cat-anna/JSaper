@@ -35,14 +35,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="@string/NewGameBtn" />
+        android:text="New game" />
 
     <Button
         android:id="@+id/buttonJoinGame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="@string/JoinGame" />
+        android:text="Join game" />
  
     <Button
         android:id="@+id/buttonCreateGame"
@@ -50,12 +50,12 @@
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:layout_marginBottom="30dp"
-        android:text="@string/NewMultiGamne" />
+        android:text="Create game" />
 
     <Button
         android:id="@+id/buttonReturnToGame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="@string/BackToGame" />
+        android:text="Back to game" />
 </LinearLayout>

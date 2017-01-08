@@ -9,6 +9,8 @@ import com.Multisaper.Core.Interfaces.Controller.TheOneSaperMistakeException;
 public class Board implements java.io.Serializable {
 	private static final long serialVersionUID = 55L;
 
+	boolean DebugMode = true;
+
 	public enum FieldSelection {
 		None, Bomb, Unknown, MaxValue,
 	}
@@ -104,7 +106,7 @@ public class Board implements java.io.Serializable {
 					continue;
 
 				validFields++;
-				if (Board[linear].IsUncovered)
+				if (Board[linear].IsUncovered || Board[linear].HasBomb)
 					++loneless;
 			}
 			if (loneless == validFields) {
@@ -136,8 +138,7 @@ public class Board implements java.io.Serializable {
 		return !(f.IsUncovered || f.IsSelected());
 	}
 
-	public int ClickField(int x, int y) throws TheOneSaperMistakeException,
-			OutOfBoardException {
+	public int ClickField(int x, int y) throws TheOneSaperMistakeException, OutOfBoardException {
 		if (x >= Width || y >= Height)
 			throw new OutOfBoardException();
 		if (x < 0 || y < 0)
@@ -232,7 +233,10 @@ public class Board implements java.io.Serializable {
 				if (f.IsSelected())
 					be.CheckedField(x, y, f.getSelectionMode());
 				else
-					be.CoveredFiled(x, y);
+					if (DebugMode && f.HasBomb)
+						be.CheckedField(x, y, FieldSelection.Unknown);
+					else
+						be.CoveredFiled(x, y);
 			}// CheckedField
 		}
 	}

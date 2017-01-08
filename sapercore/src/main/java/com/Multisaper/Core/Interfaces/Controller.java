@@ -10,16 +10,24 @@ import com.Multisaper.Core.Interfaces.MainWindow.EndGameAction;
 import com.Multisaper.Core.Interfaces.MainWindow.NewGameAction;
 import com.Multisaper.Core.Logic.Board;
 
-public abstract class Controller {
+public abstract class Controller implements SoundEffectPlayer {
 	private static Controller _Instance;
 	protected MainWindow mw;
 	protected String Login, Password;
 	protected GUISize BoardSize = null;
 	protected int BombCount;
 	protected com.Multisaper.Core.Interfaces.SaperConnection game;
+	protected SoundEffectPlayer SoundEffects;
 
 	public Controller() {
 		_Instance = this;
+		SetSoundEffectPlayer(null);
+	}
+
+	@Override
+	public void PlaySoundEffect(SoundEffect value) {
+		if(SoundEffects != null)
+			SoundEffects.PlaySoundEffect(value);
 	}
 
 	public boolean isConnected() {
@@ -96,6 +104,15 @@ public abstract class Controller {
 		Ok, Accept,
 	}
 
+	public void SetSoundEffectPlayer(SoundEffectPlayer sep)
+	{
+		if(sep == this) {
+			SetSoundEffectPlayer(null);
+			return;
+		}
+		SoundEffects = sep;
+	}
+
 	public abstract GUINootificationResponse NotifyGUI(
 			GUINotificationReason reason);
 
@@ -111,7 +128,14 @@ public abstract class Controller {
 
 	public void BoardClickField(int x, int y)
 			throws TheOneSaperMistakeException {
-		game.PerformClick(x, y);
+		try {
+			game.PerformClick(x, y);
+		}
+		catch(TheOneSaperMistakeException e)
+		{
+			PlaySoundEffect(SoundEffect.MineExplosion);
+			throw e;
+		}
 	}
 
 	public void BoardSelectField(int x, int y)
@@ -210,6 +234,7 @@ public abstract class Controller {
 
 	public void GameWon() {
 		mw.OnGameEnd(EndGameAction.GameWon);
+		PlaySoundEffect(SoundEffect.GameWon);
 	}
 
 	public DBConn getDBConnection() throws SQLException {

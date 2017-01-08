@@ -16,7 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="@string/NewGameSettings"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="New game settings" />
 
     <LinearLayout
         android:id="@+id/DummyLayout1"
@@ -28,7 +29,8 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="@string/Width"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            tools:text="Width" />
 
         <EditText
             android:id="@+id/editWidth"
@@ -48,7 +50,8 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="@string/Height"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            tools:text="Height" />
 
         <EditText
             android:id="@+id/editHeight"
@@ -69,7 +72,8 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="@string/BombCount"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            tools:text="Bombs" />
 
         <EditText
             android:id="@+id/editBombs"
@@ -85,6 +89,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="@string/Ok" />
+        android:text="Continue" />
 
 </LinearLayout>

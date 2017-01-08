@@ -61,15 +61,15 @@ public class NewGameFrame extends JDialog {
 		BombCountSpinner.setBounds(125, 97, 51, 20);
 		contentPane.add(BombCountSpinner);		
 		
-		JLabel lblNewLabel = new JLabel("Szeroko\u015B\u0107");
+		JLabel lblNewLabel = new JLabel("Width");
 		lblNewLabel.setBounds(10, 33, 83, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Wysoko\u015B\u0107");
+		JLabel lblNewLabel_1 = new JLabel("Height");
 		lblNewLabel_1.setBounds(10, 59, 83, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Ilo\u015B\u0107 bomb");
+		JLabel lblNewLabel_2 = new JLabel("Bombs");
 		lblNewLabel_2.setBounds(10, 100, 86, 14);
 		contentPane.add(lblNewLabel_2);
 		
@@ -89,7 +89,7 @@ public class NewGameFrame extends JDialog {
 		OKButton.setBounds(125, 163, 97, 23);
 		contentPane.add(OKButton);
 		
-		JButton CancelButton = new JButton("Anuluj");
+		JButton CancelButton = new JButton("Cancel");
 		CancelButton.setBounds(10, 163, 98, 23);
 		CancelButton.addMouseListener(new MouseAdapter() {
 			@Override

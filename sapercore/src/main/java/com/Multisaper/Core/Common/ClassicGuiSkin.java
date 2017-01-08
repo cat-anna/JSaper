@@ -27,6 +27,7 @@ public class ClassicGuiSkin extends GuiSkin {
         super(guir);
         FieldTexture = fieldTexture;
         Counter = counter;
+        this.SizeMultiplier = SizeMultiplier;
 
         LightShadowColor = BaseLightShadowColor;
         DarkShadowColor = BaseDarkShadowColor;
@@ -40,6 +41,9 @@ public class ClassicGuiSkin extends GuiSkin {
         BoardBorderSize = SizeMultiplier * BaseBoardBorderSize;
         BoardMarginSize = SizeMultiplier * BaseBoardMarginSize;
         FieldSize = SizeMultiplier * BaseFieldSize;
+
+        CounterH = 23 * SizeMultiplier;
+        CounterW = 13 * SizeMultiplier;
     }
 
     float LightShadowColor[];
@@ -53,7 +57,10 @@ public class ClassicGuiSkin extends GuiSkin {
     int MenuBorderSize;
     int BoardBorderSize;
     int BoardMarginSize;
-    int FieldSize;
+    int FieldSize;int SizeMultiplier;
+
+    int CounterW;
+    int CounterH;
 
     private GUISize TimeCounterPos = new GUISize(1, 1);
     private GUISize BombCounterPos = new GUISize(1, 1);
@@ -91,9 +98,9 @@ public class ClassicGuiSkin extends GuiSkin {
         BoardDelta.Width = BoardBorder.x + BoardBorderSize;
         BoardDelta.Height = BoardBorder.y + BoardBorderSize + 1;
 
-        TimeCounterPos.Height = BombCounterPos.Height = UpperMenuMarginSize + OuterBorderSize + (UpperMenuHeight - 13) / 2;
+        TimeCounterPos.Height = BombCounterPos.Height = UpperMenuMarginSize + OuterBorderSize + (UpperMenuHeight - CounterH) / 2;
         TimeCounterPos.Width = UpperMenuMarginSize + OuterBorderSize + 20;
-        BombCounterPos.Width = W - (UpperMenuMarginSize + OuterBorderSize + 20) - 3 * 13;
+        BombCounterPos.Width = W - (UpperMenuMarginSize + OuterBorderSize + 20) - 3 * CounterW;
     }
 
     @Override
@@ -180,6 +187,8 @@ public class ClassicGuiSkin extends GuiSkin {
 
     @Override
     public void RenderCounters(int Time, int Bombs) {
+        if(Bombs > 999)
+            Bombs = 999;
         String Tstr = Integer.toString(Time);
         String Bstr = Integer.toString(Bombs);
 
@@ -188,9 +197,9 @@ public class ClassicGuiSkin extends GuiSkin {
         byte[] temp = new byte[3];
 
         for (int i = 0; i < 3; ++i) temp[i] = ProcessIndex(Tstr.charAt(i));
-        Counter.Render(guir, BombCounterPos.Width, BombCounterPos.Height, 13, 23, temp);
+        Counter.Render(guir, BombCounterPos.Width, BombCounterPos.Height, CounterW, CounterH, temp);
         for (int i = 0; i < 3; ++i) temp[i] = ProcessIndex(Bstr.charAt(i));
-        Counter.Render(guir, TimeCounterPos.Width, TimeCounterPos.Height, 13, 23, temp);
+        Counter.Render(guir, TimeCounterPos.Width, TimeCounterPos.Height, CounterW, CounterH, temp);
     }
 
 }

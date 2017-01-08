@@ -22,7 +22,7 @@ public class DBConn {
 		Instance = this;
 		dummy = true;
 	}
-
+//awdsfegdhjf
 	public static DBConn GetInstance() throws SQLException {
 		if (Instance != null)
 			return Instance;
@@ -33,8 +33,8 @@ public class DBConn {
 		//	Class.forName("com.mysql.jdbc.Driver");
 		//	return new DBConn(
 		//			DriverManager
-		//					.getConnection("jdbc:mysql://192.168.200.203:3306/androidsaper?"
-		//							+ "user=test&password=test"));
+		//					.getConnection("jdbc:mysql://db4free.net:3306/pgrabas_saperdev?"
+		//							+ "user=pgrabas&password=awdsfegdhjf"));
 		//} catch (SQLException ex) {
 		//	System.out.println("SQLException: " + ex.getMessage());
 		//	System.out.println("SQLState: " + ex.getSQLState());

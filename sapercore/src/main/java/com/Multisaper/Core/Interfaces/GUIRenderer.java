@@ -4,7 +4,7 @@ import com.Multisaper.Core.Common.GUIBox;
 import com.Multisaper.Core.Common.GUISize;
 import com.Multisaper.Core.Logic.Board;
 
-public abstract class GUIRenderer {
+public abstract class 	GUIRenderer {
 	void Initialize() { }
 	void Finalize() { }
 
