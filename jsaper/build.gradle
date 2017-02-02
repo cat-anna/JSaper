@@ -8,6 +8,8 @@ dependencies {
     compile files('libs/joal.jar')
     compile files('libs/jocl.jar')
     compile files('libs/jogl-all.jar')
+    compile files('libs/gluegen-rt.jar')
+    compile files('libs/mysql-connector-java-5.1.40-bin.jar')
 }
 
 repositories {
