@@ -51,6 +51,14 @@
         android:paddingBottom="10dp"
         android:layout_marginBottom="30dp"
         android:text="Create game" />
+    <Button
+        android:id="@+id/buttonStatistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="30dp"
+        android:text="Show statistics"
+        android:onClick="OnShowStatistics" />
 
     <Button
         android:id="@+id/buttonReturnToGame"

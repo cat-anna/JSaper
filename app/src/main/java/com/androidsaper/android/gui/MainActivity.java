@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
 	final static protected int NewGameRequest = 10;
 	final static protected int CreateGameRequest = 20;
 	final static protected int JoinGameRequest = 30;
+	final static protected int StatisticsRequest = 40;
 
 	protected void onNewGameClick(View arg0) {
 		Intent intent = new Intent(this, GameLevelSelection.class);
@@ -48,6 +49,16 @@ public class MainActivity extends Activity {
 		} else {
 			Intent intent = new Intent(this, LogInActivity.class);
 			startActivityForResult(intent, JoinGameRequest);
+		}
+	}
+
+	public void OnShowStatistics(View v) {
+		Log.d("dupa", "stats");
+		if (Controller.getInstance().isConnected()) {
+			onActivityResult(StatisticsRequest, 1, null);
+		} else {
+			Intent intent = new Intent(this, LogInActivity.class);
+			startActivityForResult(intent, StatisticsRequest);
 		}
 	}
 
@@ -98,7 +109,7 @@ public class MainActivity extends Activity {
 		
 		case JoinGameRequest: {
 			Intent intent = new Intent(this, MultiGameActivity.class);
-			startActivityForResult(intent, JoinGameRequest+1);		
+			startActivityForResult(intent, JoinGameRequest+1);
 			break;
 		}
 		case JoinGameRequest+1: {
@@ -117,6 +128,13 @@ public class MainActivity extends Activity {
 			finish();
 			break;
 		}
+
+		case StatisticsRequest: {
+			Intent intent = new Intent(this, ChartActivity.class);
+			startActivityForResult(intent, StatisticsRequest);
+			break;
+		}
+
 		}
 //		super.onActivityResult(requestCode, resultCode, data);
 	}

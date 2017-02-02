@@ -28,6 +28,7 @@ DB schema:
 create user saper identiffied by saper;
 grant all PRIVILEGES on saper.* to 'saper' with grant option;
 
+
 drop table Users;
 create table Users
 (
@@ -58,7 +59,6 @@ create table gameinfo
 	PlayerID varchar(255) NOT NULL,
 
 	FieldsUncovered int not null,
-	Joinat date not null,
 	Status int not null default 0,
 	DeathTime date default null,
 
@@ -217,8 +217,8 @@ create table gameinfo
 		if(dummy) return;
 		try {
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate("insert into gameinfo (GameID, PlayerID, FieldsUncovered, Joinat) values ("
-					+ GameID + ", '" + User + "', 0, " + JoinTime + ")");
+			stmt.executeUpdate("insert into gameinfo (GameID, PlayerID, FieldsUncovered) values ("
+					+ GameID + ", '" + User + "', 0)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;

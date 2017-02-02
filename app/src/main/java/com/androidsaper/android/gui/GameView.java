@@ -93,7 +93,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		
 		int x = (int) event.getX();
 		int y = (int) event.getY();
-		Point p = transformPoint(x, y);
+		final Point p = transformPoint(x, y);
 		int act = event.getAction();
 		long currtime = SystemClock.elapsedRealtime();
 		Log.d("dupa", String.format("%d  %d %d", act, p.x, p.y));
@@ -106,14 +106,19 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 						Toast.makeText(getContext(), "You are dead!", Toast.LENGTH_SHORT).show();
 					return true;
 				}
-				try {
-					if(!SelChange)
-						Controller.getInstance().BoardClickField(p.x, p.y);
-				} catch (TheOneSaperMistakeException e) {
-					Controller.getInstance().PlayerDied();
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
+				if(!SelChange) {
+					new Thread(new Runnable() {
+						public void run() {
+							try {
+								Controller.getInstance().BoardClickField(p.x, p.y);
+							} catch (TheOneSaperMistakeException e) {
+								Controller.getInstance().PlayerDied();
+								e.printStackTrace();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					}).start();
 				}
 				time = currtime;
 			} else {
