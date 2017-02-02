@@ -22,28 +22,69 @@ public class DBConn {
 		Instance = this;
 		dummy = true;
 	}
-//awdsfegdhjf
+/*
+DB schema:
+
+drop table Users;
+create table Users
+(
+	UserID int AUTO_INCREMENT NOT NULL,
+	Login varchar(255) NOT NULL,
+	Password varchar(255) NOT NULL,
+	PRIMARY KEY (UserID)
+);
+
+drop table games;
+create table games
+(
+	GameID int AUTO_INCREMENT NOT NULL,
+	CreatorID varchar(255) NOT NULL,
+
+	BoardW int NOT NULL,
+	boardH int NOT NULL,
+	Bombs int NOT NULL,
+
+	PRIMARY KEY (GameID)
+);
+
+
+drop table gameinfo;
+create table gameinfo
+(
+	GameID int NOT NULL,
+	PlayerID varchar(255) NOT NULL,
+
+	FieldsUncovered int not null,
+	Joinat date not null,
+	Status int not null default 0,
+	DeathTime date default null,
+
+	FOREIGN KEY (GameID) REFERENCES games(GameID)
+);
+
+ */
 	public static DBConn GetInstance() throws SQLException {
 		if (Instance != null)
 			return Instance;
 
-		return new DBConn();
+		//return new DBConn();
 
-		//try {
-		//	Class.forName("com.mysql.jdbc.Driver");
-		//	return new DBConn(
-		//			DriverManager
-		//					.getConnection("jdbc:mysql://db4free.net:3306/pgrabas_saperdev?"
-		//							+ "user=pgrabas&password=awdsfegdhjf"));
-		//} catch (SQLException ex) {
-		//	System.out.println("SQLException: " + ex.getMessage());
-		//	System.out.println("SQLState: " + ex.getSQLState());
-		//	System.out.println("VendorError: " + ex.getErrorCode());
-		//	throw ex;
-		//} catch (ClassNotFoundException e) {
-		//	e.printStackTrace();
-		//	throw new SQLException();
-		//}
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			return new DBConn(
+					DriverManager
+							.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11154613?"
+									+ "user=sql11154613&password=ucikGWIvqx"));
+            //mysql -usql11154613 -pucikGWIvqx -h sql11.freesqldatabase.com
+        } catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+			throw ex;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+            throw new SQLException();
+		}
 	} 
 
 	public static class PlayeStats {
@@ -205,12 +246,22 @@ public class DBConn {
 		if(dummy) return;
 		try {
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate("update gameinfo set Status = 1, DeathTime="
-					+ DeathTime + " where GameID=" + GameID + " and PlayerID='"
+			stmt.executeUpdate("update gameinfo set Status = 1 where GameID=" + GameID + " and PlayerID='"
 					+ User + "'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
+    public void GameWon(String GameID)
+            throws SQLException {
+        if(dummy) return;
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("update gameinfo set Status = 2 where GameID=" + GameID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

@@ -114,7 +114,6 @@ public class MainActivity extends Activity {
 				Toast.makeText(this, "Connection error", Toast.LENGTH_SHORT).show();
 				return;
 			}
-			Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
 			finish();
 			break;
 		}

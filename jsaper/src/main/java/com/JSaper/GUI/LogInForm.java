@@ -44,12 +44,12 @@ public class LogInForm extends JDialog {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Nazwa u\u017Cytkownika");
+		JLabel lblNewLabel = new JLabel("Username");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(10, 33, 98, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Has\u0142o");
+		JLabel lblNewLabel_1 = new JLabel("Password");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1.setBounds(45, 59, 63, 14);
 		contentPane.add(lblNewLabel_1);
@@ -63,26 +63,27 @@ public class LogInForm extends JDialog {
 				String p = passwordField.getText();
 				
 				if(l.isEmpty() || p.isEmpty()) {
-					JOptionPane.showMessageDialog(LogInForm.this, "Wszystkie pola s� wymagane", "Multisaper",
+					JOptionPane.showMessageDialog(LogInForm.this, "Please fill in all fields", "Saper",
 							JOptionPane.PLAIN_MESSAGE);
 					return;
 				}
 				
 				LogInForm.this.Output.LogIn = l;
 				LogInForm.this.Output.Password = p;
-				setVisible(false);
+				LogInForm.this.setVisible(false);
+				LogInForm.this.dispose();
 			}
 		});
 		OKButton.setBounds(118, 110, 97, 23);
 		contentPane.add(OKButton);
 		
-		JButton CancelButton = new JButton("Anuluj");
+		JButton CancelButton = new JButton("Cancel");
 		CancelButton.setBounds(10, 110, 98, 23);
 		CancelButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				LogInForm.this.Output = null;
-				setVisible(false);
+				LogInForm.this.setVisible(false);
 			}
 		});
 		contentPane.add(CancelButton);

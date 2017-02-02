@@ -47,13 +47,13 @@ public class StatisticsForm extends JDialog {
 	
 	ChartPanel InitGameStats() {
 		DefaultPieDataset dane = new DefaultPieDataset();
-		dane.setValue("typ A", 20); //wartosci
-		dane.setValue("typ B", 25);
-		dane.setValue("typ C", 10);
-		dane.setValue("typ D", 45);
+		dane.setValue("type A", 20); //wartosci
+		dane.setValue("type B", 25);
+		dane.setValue("type C", 10);
+		dane.setValue("type D", 45);
 		
 		JFreeChart chart = ChartFactory.createPieChart
-				("Wykres typu Pie ", // Tytu�
+				("Pie ", // Tytu�
 				dane, // Dane
 				true, // Flaga - Legendy
 				true, // Tultips � male opisy
@@ -68,9 +68,9 @@ public class StatisticsForm extends JDialog {
 			DBConn dbc = Controller.getInstance().getDBConnection();
 			
 			PlayeStats ps = dbc.getPlayerStats(Controller.getInstance().getPlayerName());
-			dane.setValue("�mierci", ps.deaths); 
-			dane.setValue("wygrane", ps.wins);
-			dane.setValue("niekoko�czona rozgrywka",  ps.games - ps.deaths - ps.wins);
+			dane.setValue("Deaths", ps.deaths);
+			dane.setValue("Wins", ps.wins);
+			dane.setValue("Unfinished games",  ps.games - ps.deaths - ps.wins);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -89,7 +89,7 @@ public class StatisticsForm extends JDialog {
 	public StatisticsForm(JFrame Owner, DialogData dd) {
 		super(Owner);		
 		Output = dd;
-		setTitle("Statystyki");
+		setTitle("Statistics");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -100,7 +100,7 @@ public class StatisticsForm extends JDialog {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
-		tabbedPane.addTab("Statystyki gracza", null, InitPlayerStats("Statystyki gracza"), null);
+		tabbedPane.addTab("Player statistics", null, InitPlayerStats("Player statistics"), null);
 		//tabbedPane.addTab("Statystyki Gry", null, InitGameStats(), null);
 	}
 

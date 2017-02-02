@@ -48,8 +48,8 @@ public class LogInActivity extends Activity {
 					}
 				};
 				AlertDialog.Builder builder = new AlertDialog.Builder(LogInActivity.this);
-				builder.setMessage("Gracz nie istnieje.\nStworzy� u�ytkownika?").setPositiveButton("Tak", dialogClickListener)
-						.setNegativeButton("Nie", dialogClickListener).show();
+				builder.setMessage("Such player does not exists. Do you want to crate new one?").setPositiveButton("Yes", dialogClickListener)
+						.setNegativeButton("No", dialogClickListener).show();
 				return;
 			}
 			
@@ -64,18 +64,18 @@ public class LogInActivity extends Activity {
 				try {
 					Controller.getInstance().CreateUser(params[0], params[1]);
 				} catch (Exception e1) {
-					publishProgress("B��d po��czenia z baz� danych");
+					publishProgress("Database connection error!");
 					return null;
 				}
 			} else {
 				try {
 					Controller.getInstance().LogIn(params[0], params[1]);
 				} catch (LoginFailureException e) {
-					publishProgress("Z�a nazwa u�ytkownika lub has�o");
+					publishProgress("Invalid user name or password");
 					publishProgress();
 					return null;
 				} catch (ConnectionException e) {
-					publishProgress("B��d po��czenia z baz� danych");
+					publishProgress("Database connection error!");
 					return null;
 				}
 			}
@@ -102,10 +102,10 @@ public class LogInActivity extends Activity {
 					if (p.length() < 1 || l.length() < 1)
 						throw new Exception();
 				} catch (Exception e) {
-					Toast.makeText(LogInActivity.this, "Wpisz poprawne dane", Toast.LENGTH_SHORT).show();
+					Toast.makeText(LogInActivity.this, "Enter correct data", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				pDialog = ProgressDialog.show(LogInActivity.this, "��czenie z baz�...", "Prosz� czeka�");
+				pDialog = ProgressDialog.show(LogInActivity.this, "Connecting to database..", "Please wait");
 			    
 				new Worker().execute(l, p);
 			}

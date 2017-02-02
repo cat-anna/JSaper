@@ -35,7 +35,7 @@ public class MultiGameActivity extends Activity {
 					if (s.length() < 1)
 						throw new Exception();
 				} catch (Exception e) {
-					Toast.makeText(MultiGameActivity.this, "Wpisz poprawne dane", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MultiGameActivity.this, "Enter correct data", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				Intent returnIntent = getIntent();//new Intent();

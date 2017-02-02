@@ -76,19 +76,22 @@ public class GameActivity extends Activity implements MainWindow {
 				GameView.SetGameState(false);
 				switch(action){
 				case AllPlayersDied:
-					Toast.makeText(GameActivity.this, "Wszyscy gracze zgin�li!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(GameActivity.this, "All players have died...", Toast.LENGTH_SHORT).show();
 					onBackPressed();
 					break;
 				case ConnectionDied:
-					Toast.makeText(GameActivity.this, "Utracono po��czenie z serwerem!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(GameActivity.this, "Database connection failed!", Toast.LENGTH_SHORT).show();
 					onBackPressed();
 					break;
 				case GameWon:
-					Toast.makeText(GameActivity.this, "Wygrana!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(GameActivity.this, "Victory!", Toast.LENGTH_SHORT).show();
 					onBackPressed();
 					break;
 				case PlayerDied:
-					Toast.makeText(GameActivity.this, "Przegrana!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(GameActivity.this, "You died...", Toast.LENGTH_SHORT).show();
+					onBackPressed();
+					break;
+				case Error:
 					onBackPressed();
 					break;
 				default:

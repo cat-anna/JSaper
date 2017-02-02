@@ -115,11 +115,11 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 							NewGame.Width, NewGame.Height, NewGame.Bombs);
 		} catch (ExitFunExeption e) {
 		} catch (UnableToCreateServerException e) {
-			JOptionPane.showMessageDialog(this, "B��d uruchamiania serwera!",
-					"MultiSaper", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(this, "game sever startup failed!",
+					"Saper", JOptionPane.PLAIN_MESSAGE);
 		} catch (NotLoggedInException e) {
-			JOptionPane.showMessageDialog(this, "Musisz by� zalogowany!",
-					"MultiSaper", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(this, "You need to log in to do this!",
+					"Saper", JOptionPane.PLAIN_MESSAGE);
 		}
 		EnableRendering();
 	}
@@ -128,8 +128,8 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 		if (Controller.getInstance().isConnected())
 			return;
 		int r = JOptionPane.showConfirmDialog(this,
-				"Akcja wymaga zalogowania. Czy chcesz to teraz zrobi�?",
-				"MultiSaper", JOptionPane.YES_NO_OPTION);
+				"You need to log in to do this. Do you want to do this?",
+				"Saper", JOptionPane.YES_NO_OPTION);
 
 		if (r == JOptionPane.YES_OPTION)
 			OnLoginClick(null);
@@ -150,11 +150,11 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 					ServData.Port);
 		} catch (ExitFunExeption e) {
 		} catch (NotLoggedInException e) {
-			JOptionPane.showMessageDialog(this, "Musisz by� zalogowany!",
-					"MultiSaper", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(this, "You need to log in to do this",
+					"Saper", JOptionPane.PLAIN_MESSAGE);
 		} catch (ConnectionException e) {
 			JOptionPane.showMessageDialog(this,
-					"Nie mo�esz do��cza� do gry wi�cej niz raz!", "MultiSaper",
+					"You already joined that game", "Saper",
 					JOptionPane.PLAIN_MESSAGE);
 		}
 		EnableRendering();
@@ -186,21 +186,25 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 					int r = JOptionPane
 							.showConfirmDialog(
 									MainForm.this,
-									"Z�a nazwa u�ytkownika lub has�o. Czy chcesz za�o�y� nowe konto?",
-									"MultiSaper", JOptionPane.YES_NO_OPTION);
+									"Such user does not exists. Do you want to create new one?",
+									"Saper", JOptionPane.YES_NO_OPTION);
 					if (r == JOptionPane.YES_OPTION) {
 						Controller.getInstance().CreateUser(LogIn, Password);
+					} else {
+						throw new Exception();
 					}
+				}
+				if (Controller.getInstance().isConnected()) {
+					JOptionPane.showMessageDialog(MainForm.this, "Logged in");
 				}
 			} catch (LoginFailureException e) {
 				JOptionPane.showMessageDialog(MainForm.this,
-						"U�ytkownik o tej nazwie ju� istnieje");
+						"Such user exists!");
 			} catch (ConnectionException e) {
-				JOptionPane.showMessageDialog(MainForm.this, "B��d po��czenia z serwerem");
-			} 
-			if (Controller.getInstance().isConnected()) {
-				JOptionPane.showMessageDialog(MainForm.this, "Zalogowano");
+				JOptionPane.showMessageDialog(MainForm.this, "Database connection error");
+			} catch (Exception e) {
 			}
+
 			GameDisabled = false;
 		}
 	}
@@ -208,8 +212,8 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 	private void OnLoginClick(ActionEvent arg0) {
 		if (Controller.getInstance().isConnected()) {
 			int r = JOptionPane.showConfirmDialog(this,
-					"Jeste� zalogowany. Czy chcesz si� wylogowa�?",
-					"MultiSaper", JOptionPane.YES_NO_OPTION);
+					"Do you want to log out?",
+					"Saper", JOptionPane.YES_NO_OPTION);
 
 			if (r == JOptionPane.YES_OPTION) {
 				Controller.getInstance().LogOff();
@@ -244,10 +248,10 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		JMenu mnGra = new JMenu("Gra");
+		JMenu mnGra = new JMenu("Game");
 		menuBar.add(mnGra);
 
-		JMenuItem mntmNowaGra = new JMenuItem("Nowa gra");
+		JMenuItem mntmNowaGra = new JMenuItem("New game");
 
 		mntmNowaGra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -259,7 +263,7 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 		JSeparator separator = new JSeparator();
 		mnGra.add(separator);
 
-		JMenuItem mntmZapiszGr = new JMenuItem("Zapisz gr\u0119");
+		JMenuItem mntmZapiszGr = new JMenuItem("Save game");
 		mnGra.add(mntmZapiszGr);
 		mntmZapiszGr.addActionListener(new ActionListener() {
 			@Override
@@ -278,7 +282,7 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 			}
 		});
 
-		JMenuItem mntmWczytajGr = new JMenuItem("Wczytaj gr\u0119");
+		JMenuItem mntmWczytajGr = new JMenuItem("Load game");
 		mnGra.add(mntmWczytajGr);
 		mntmWczytajGr.addActionListener(new ActionListener() {
 			@Override
@@ -299,7 +303,7 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 		JSeparator separator_2 = new JSeparator();
 		mnGra.add(separator_2);
 
-		JMenuItem mntmNewMultiplayerGame = new JMenuItem("Nowa gra multiplayer");
+		JMenuItem mntmNewMultiplayerGame = new JMenuItem("New multiplayer game");
 		mnGra.add(mntmNewMultiplayerGame);
 		mntmNewMultiplayerGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -307,7 +311,7 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 			}
 		});
 		JMenuItem mntmJoinMultiplayerGame = new JMenuItem(
-				"Do��cz do istniej�cej gry");
+				"Join game");
 		mnGra.add(mntmJoinMultiplayerGame);
 		mntmJoinMultiplayerGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -316,7 +320,7 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 		});
 
 		mnGra.add(new JSeparator());
-		mnLogin = new JMenuItem("Zaloguj");
+		mnLogin = new JMenuItem("Log in");
 		mnGra.add(mnLogin);
 		mnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -325,7 +329,7 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 		});
 
 		mnGra.add(new JSeparator());
-		JMenuItem mntmZakocz = new JMenuItem("Zako\u0144cz");
+		JMenuItem mntmZakocz = new JMenuItem("Exit");
 		mntmZakocz.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -335,10 +339,10 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 		});
 		mnGra.add(mntmZakocz);
 
-		JMenu mnStatystyki = new JMenu("Statystyki");
+		JMenu mnStatystyki = new JMenu("Statistics");
 		menuBar.add(mnStatystyki);
 
-		JMenuItem ShowStats = new JMenuItem("Poka�");
+		JMenuItem ShowStats = new JMenuItem("Show");
 		ShowStats.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -418,7 +422,7 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 		Dimension outd = getContentPane().getSize();
 		if (!ind.equals(outd)) {
 			JOptionPane.showMessageDialog(this,
-					"Tw�j ekran jest zbyt ma�y aby wy�wietli� ca�� plansz�!");
+					"Your screen is to small to display whole board!");
 			Controller.getInstance().NewGame(10, 10, 10);
 		}
 		skin.ResetSize();
@@ -429,19 +433,19 @@ public class MainForm extends JFrame implements com.Multisaper.Core.Interfaces.M
 		InGame = false;
 		switch (action) {
 		case PlayerDied:
-			JOptionPane.showMessageDialog(this, "Koniec gry!", "Multisaper",
+			JOptionPane.showMessageDialog(this, "Game over", "Saper",
 					JOptionPane.PLAIN_MESSAGE);
 			break;
 		case AllPlayersDied:
 			break;
 		case ConnectionDied:
 			JOptionPane.showMessageDialog(this,
-					"Utracono po��czenie z serwerem!", "Multisaper",
+					"Lost connection to database!", "Saper",
 					JOptionPane.PLAIN_MESSAGE);
 			Controller.getInstance().NewGame(10, 10, 10);
 			break;
 		case GameWon:
-			JOptionPane.showMessageDialog(this, "Wygrana!", "Multisaper",
+			JOptionPane.showMessageDialog(this, "Victory", "Saper",
 					JOptionPane.PLAIN_MESSAGE);
 			break;
 		default:

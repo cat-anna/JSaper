@@ -266,42 +266,67 @@ public class SaperServer extends com.Multisaper.Core.Interfaces.SaperConnection 
 
 	protected void GameWon() {
 		BroadCast(new Packets.GameWonPacket());
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					DBConn.GetInstance().GameWon(GameID);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
-	protected void PlayerUncoveredFields(String playerName, int c) {
-		try {
-			DBConn.GetInstance().AddUncoveredFields(GameID, playerName, c);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	protected void PlayerUncoveredFields(final String playerName, final int c) {
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					DBConn.GetInstance().AddUncoveredFields(GameID, playerName, c);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
-	protected void PlayerDied(String playerName) {
+	protected void PlayerDied(final String playerName) {
 		BroadCast(new PlayerDiedPacket(playerName));
-		try {
-			DBConn.GetInstance().PlayerDied(GameID, playerName, currentTime);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					DBConn.GetInstance().PlayerDied(GameID, playerName, currentTime);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 		if (playerName.equals(UserName)) {
 			Controller.getInstance().PlayerDied();
 		}
 	}
 
-	protected void RegisterGamePlayer(String name) {
-		try {
-			DBConn.GetInstance().RegisterGamePlayer(GameID, name, currentTime);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	protected void RegisterGamePlayer(final String name) {
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					DBConn.GetInstance().RegisterGamePlayer(GameID, name, currentTime);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
 	protected void CloseGame() {
-		try {
-			com.Multisaper.Core.DB.DBConn.GetInstance().CloseGame(GameID);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					DBConn.GetInstance().CloseGame(GameID);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 	
 	private void BroadCast(PacketCommon packet) {

@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.Multisaper.Core.Common.ClassicGuiSkin;
 import com.Multisaper.Core.Common.GUISize;
@@ -30,6 +31,8 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	GuiSkin skin;
 	Display disp;
 
+	boolean IsMultiGame;
+
 	public GameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		getHolder().addCallback(this);
@@ -37,6 +40,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		disp = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		Renderer = new ADTSurfaceRenderer(this, disp);
 
+		IsMultiGame = false;
 		thread = null;
 		setFocusable(true);
 		RecreateSkin();
@@ -64,6 +68,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	public void SetGameState(boolean state) {
 		Log.d("dupa", "game: " + state);
 		InGame = state;
+		IsMultiGame = Controller.getInstance().IsMultiGame();
 	}
 
 	Point transformPoint(int x, int y) {
@@ -96,7 +101,11 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		case MotionEvent.ACTION_UP: {
 			Clicked = false;
 			if (!moved) {
-				if(!InGame) return true;
+				if(!InGame) {
+					if(IsMultiGame)
+						Toast.makeText(getContext(), "You are dead!", Toast.LENGTH_SHORT).show();
+					return true;
+				}
 				try {
 					if(!SelChange)
 						Controller.getInstance().BoardClickField(p.x, p.y);
@@ -125,7 +134,8 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		case MotionEvent.ACTION_MOVE: {
 			Log.d("dupa", String.format("dpos %s     %d  %d", String.valueOf(moved),  x - ClickPoint.x, y - ClickPoint.y));
 			boolean tosmall = false;
-			if(Math.abs(ClickPoint.x - x) < 5 && Math.abs(ClickPoint.y - y) < 5) tosmall = true;
+			if(Math.abs(ClickPoint.x - x) < 15 && Math.abs(ClickPoint.y - y) < 15)
+				tosmall = true;
 			if(!tosmall) {
 				if(moved) {
 					int dx = x - ClickPoint.x;

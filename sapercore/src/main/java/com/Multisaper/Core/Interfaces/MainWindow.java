@@ -14,6 +14,7 @@ public interface MainWindow {
 		PlayerDied,
 		ConnectionDied,
 		AllPlayersDied,
+		Error,
 	};
 	
 	void OnNewGame(NewGameAction action);

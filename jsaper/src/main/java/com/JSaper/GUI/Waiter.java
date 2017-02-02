@@ -20,7 +20,7 @@ public class Waiter extends JDialog implements WindowListener {
 	private Runnable action;
 	
 	public Waiter(Runnable action) {
-		setTitle("Multisaper");
+		setTitle("Saper");
 		setResizable(false);
 		addWindowListener(this);
 		setType(Type.POPUP);
@@ -35,7 +35,7 @@ public class Waiter extends JDialog implements WindowListener {
 				JButton cancelButton = new JButton("Cancel");
 				buttonPane.add(cancelButton);
 				{
-					JLabel lblNewLabel = new JLabel("\u0141\u0105czenie z baz\u0105. Prosz\u0119 czela\u0107...");
+					JLabel lblNewLabel = new JLabel("Connecting to database. Please wait...");
 					lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 					getContentPane().add(lblNewLabel, BorderLayout.CENTER);
 				}
@@ -43,7 +43,7 @@ public class Waiter extends JDialog implements WindowListener {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
 						th.interrupt();
-						setVisible(false);
+						Waiter.this.setVisible(false);
 					}
 				});
 			}
@@ -53,7 +53,7 @@ public class Waiter extends JDialog implements WindowListener {
 			@Override
 			public void run() {
 				Waiter.this.action.run();
-				setVisible(false);
+				Waiter.this.setVisible(false);
 			}
 		});
 		th.setDaemon(true);

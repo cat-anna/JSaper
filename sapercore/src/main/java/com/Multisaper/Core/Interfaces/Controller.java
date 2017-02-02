@@ -9,6 +9,7 @@ import com.Multisaper.Core.DB.DBConn;
 import com.Multisaper.Core.Interfaces.MainWindow.EndGameAction;
 import com.Multisaper.Core.Interfaces.MainWindow.NewGameAction;
 import com.Multisaper.Core.Logic.Board;
+import com.Multisaper.Core.Logic.LocalGame;
 
 public abstract class Controller implements SoundEffectPlayer {
 	private static Controller _Instance;
@@ -31,7 +32,7 @@ public abstract class Controller implements SoundEffectPlayer {
 	}
 
 	public boolean isConnected() {
-		return com.Multisaper.Core.DB.DBConn.IsConnected();
+		return DBConn.IsConnected();
 	}
 
 	public static class TheOneSaperMistakeException extends RuntimeException {
@@ -76,6 +77,7 @@ public abstract class Controller implements SoundEffectPlayer {
 	}
 
 	public void PlayerDied() {
+		PlaySoundEffect(SoundEffect.MineExplosion);
 		mw.OnGameEnd(EndGameAction.PlayerDied);
 	}
 
@@ -90,6 +92,12 @@ public abstract class Controller implements SoundEffectPlayer {
 	public Board GetBoard() {
 		if(game == null) return null;
 		return game.GetBoardClient();
+	}
+
+	public boolean IsMultiGame() {
+		if(game == null)
+			return false;
+		return !(game instanceof LocalGame);
 	}
 
 	public abstract void NewGame(int w, int h, int bombs);
@@ -133,7 +141,6 @@ public abstract class Controller implements SoundEffectPlayer {
 		}
 		catch(TheOneSaperMistakeException e)
 		{
-			PlaySoundEffect(SoundEffect.MineExplosion);
 			throw e;
 		}
 	}
