@@ -25,6 +25,9 @@ public class DBConn {
 /*
 DB schema:
 
+create user saper identiffied by saper;
+grant all PRIVILEGES on saper.* to 'saper' with grant option;
+
 drop table Users;
 create table Users
 (
@@ -73,8 +76,8 @@ create table gameinfo
 			Class.forName("com.mysql.jdbc.Driver");
 			return new DBConn(
 					DriverManager
-							.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11154613?"
-									+ "user=sql11154613&password=ucikGWIvqx"));
+							.getConnection("jdbc:mysql://calypso.lan:3306/saper?user=saper&password=saper"));
+								//	"jdbc:mysql://sql11.freesqldatabase.com:3306/sql11154613?user=sql11154613&password=ucikGWIvqx"));
             //mysql -usql11154613 -pucikGWIvqx -h sql11.freesqldatabase.com
         } catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
