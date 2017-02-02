@@ -32,4 +32,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile project(':sapercore')
     compile files('libs/mysql-connector-java-3.0.17-ga-bin.jar')
+    compile files('libs/achartengine-1.2.0.jar')
 }
