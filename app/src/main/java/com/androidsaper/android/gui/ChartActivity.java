@@ -53,33 +53,10 @@ public class ChartActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
-      //  mValue = (EditText) findViewById(R.id.xValue);
-        mRenderer.setZoomButtonsVisible(true);
-        mRenderer.setStartAngle(180);
+        mRenderer.setZoomButtonsVisible(false);
+     //   mRenderer.setStartAngle(180);
         mRenderer.setDisplayValues(true);
-
-     //   mAdd = (Button) findViewById(R.id.add);
-     //   mAdd.setEnabled(true);
-     //   mValue.setEnabled(true);
-//
-     //   mAdd.setOnClickListener(new View.OnClickListener() {
-     //       public void onClick(View v) {
-     //           double value = 0;
-     //           try {
-     //               value = Double.parseDouble(mValue.getText().toString());
-     //           } catch (NumberFormatException e) {
-     //               mValue.requestFocus();
-     //               return;
-     //           }
-     //           mValue.setText("");
-     //           mValue.requestFocus();
-     //           mSeries.add("Series " + (mSeries.getItemCount() + 1), value);
-     //           SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
-     //           renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
-     //           mRenderer.addSeriesRenderer(renderer);
-     //           mChartView.repaint();
-     //       }
-     //   });
+        mRenderer.setLegendHeight(10);
     }
 
     private class GetDataTask extends AsyncTask<String, Void, DBConn.PlayeStats> {
@@ -96,8 +73,10 @@ public class ChartActivity extends Activity {
         }
 
         protected void onPostExecute(DBConn.PlayeStats ps) {
-           //mSeries.clear();
             SimpleSeriesRenderer renderer;
+
+            mSeries.clear();
+            mRenderer.removeAllRenderers();
 
             renderer = new SimpleSeriesRenderer();
             mSeries.add("Deaths", ps.deaths);
@@ -131,29 +110,27 @@ public class ChartActivity extends Activity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
         mChartView = ChartFactory.getPieChartView(this, mSeries, mRenderer);
 
-        mRenderer.setClickEnabled(true);
-
-        mChartView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                if (seriesSelection == null) {
-                    Toast.makeText(ChartActivity.this, "No chart element selected", Toast.LENGTH_SHORT)
-                            .show();
-                } else {
-                    for (int i = 0; i < mSeries.getItemCount(); i++) {
-                        mRenderer.getSeriesRendererAt(i).setHighlighted(i == seriesSelection.getPointIndex());
-                    }
-                    mChartView.repaint();
-                    Toast.makeText(
-                            ChartActivity.this,
-                            "Chart data point index " + seriesSelection.getPointIndex() + " selected"
-                                    + " point value=" + seriesSelection.getValue(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT));
+       // mRenderer.setClickEnabled(true);
+       // mChartView.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+       //     public void onClick(View v) {
+       //         SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
+       //         if (seriesSelection == null) {
+       //             Toast.makeText(ChartActivity.this, "No chart element selected", Toast.LENGTH_SHORT)
+       //                     .show();
+       //         } else {
+       //             for (int i = 0; i < mSeries.getItemCount(); i++) {
+       //                 mRenderer.getSeriesRendererAt(i).setHighlighted(i == seriesSelection.getPointIndex());
+       //             }
+       //             mChartView.repaint();
+       //             Toast.makeText(
+       //                     ChartActivity.this,
+       //                     "Chart data point index " + seriesSelection.getPointIndex() + " selected"
+       //                             + " point value=" + seriesSelection.getValue(), Toast.LENGTH_SHORT).show();
+       //         }
+       //     }
+       // });
+        layout.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         mChartView.repaint();
     }
