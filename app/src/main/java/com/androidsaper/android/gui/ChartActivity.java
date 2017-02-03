@@ -27,7 +27,7 @@ import java.sql.SQLException;
 
 public class ChartActivity extends Activity {
     /** Colors to be used for the pie slices. */
-    private static int[] COLORS = new int[] { Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN };
+    private static int[] COLORS = new int[] { , Color.BLUE, Color.MAGENTA, Color.CYAN };
     /** The main series that will include all the data. */
     private CategorySeries mSeries = new CategorySeries("");
     /** The main renderer for the main dataset. */
@@ -80,17 +80,17 @@ public class ChartActivity extends Activity {
 
             renderer = new SimpleSeriesRenderer();
             mSeries.add("Deaths", ps.deaths);
-            renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
+            renderer.setColor(Color.RED);
             mRenderer.addSeriesRenderer(renderer);
 
             renderer = new SimpleSeriesRenderer();
             mSeries.add("Wins", ps.wins);
-            renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
+            renderer.setColor(Color.GREEN);
             mRenderer.addSeriesRenderer(renderer);
 
             renderer = new SimpleSeriesRenderer();
             mSeries.add("Unfinished games", ps.games - ps.deaths - ps.wins);
-            renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
+            renderer.setColor(Color.MAGENTA);
             mRenderer.addSeriesRenderer(renderer);
 
             Rebuild();
