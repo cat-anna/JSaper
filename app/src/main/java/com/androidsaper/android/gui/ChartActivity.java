@@ -1,6 +1,8 @@
 package com.androidsaper.android.gui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import org.achartengine.ChartFactory;
@@ -26,13 +28,8 @@ import com.androidsaper.R;
 import java.sql.SQLException;
 
 public class ChartActivity extends Activity {
-    /** Colors to be used for the pie slices. */
-    private static int[] COLORS = new int[] { , Color.BLUE, Color.MAGENTA, Color.CYAN };
-    /** The main series that will include all the data. */
     private CategorySeries mSeries = new CategorySeries("");
-    /** The main renderer for the main dataset. */
     private DefaultRenderer mRenderer = new DefaultRenderer();
-    /** Button for adding entered data to the current series. */
     private GraphicalView mChartView;
 
     @Override
@@ -94,6 +91,9 @@ public class ChartActivity extends Activity {
             mRenderer.addSeriesRenderer(renderer);
 
             Rebuild();
+
+            dialog.dismiss();
+            mChartView.repaint();
         }
     }
 
@@ -101,9 +101,9 @@ public class ChartActivity extends Activity {
        // if(mSeries.getItemCount() == 0)
        //     return;
 
-        mRenderer.setFitLegend(true);
-        mRenderer.setLegendTextSize(12);
-        mRenderer.setLegendHeight(12);
+   //     mRenderer.setFitLegend(true);
+  //      mRenderer.setLegendTextSize(12);
+ //       mRenderer.setLegendHeight(12);
         ///  mRenderer.setChartTitle("Title");
         //  mRenderer.setChartTitleTextSize(18);
 
@@ -135,8 +135,12 @@ public class ChartActivity extends Activity {
         mChartView.repaint();
     }
 
+    ProgressDialog dialog;
+
     @Override
     protected void onResume() {
+        dialog = ProgressDialog.show(this, "Please wait", "Talking to database...");
+
         new GetDataTask().execute("");
         super.onResume();
         if (mChartView == null ) {

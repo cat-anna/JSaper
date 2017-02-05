@@ -76,8 +76,11 @@ create table gameinfo
 			Class.forName("com.mysql.jdbc.Driver");
 			return new DBConn(
 					DriverManager
-							.getConnection("jdbc:mysql://calypso.lan:3306/saper?user=saper&password=saper"));
-								//	"jdbc:mysql://sql11.freesqldatabase.com:3306/sql11154613?user=sql11154613&password=ucikGWIvqx"));
+							.getConnection(
+								//	"jdbc:mysql://192.168.43.117:3306/saper?user=saper&password=saper"
+									"jdbc:mysql://sql11.freesqldatabase.com:3306/sql11154613?user=sql11154613&password=ucikGWIvqx"
+
+							));
             //mysql -usql11154613 -pucikGWIvqx -h sql11.freesqldatabase.com
         } catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
@@ -141,7 +144,6 @@ create table gameinfo
 	}
 	
 	public void CloseGame(String GameName) {
-		
 	}
 
 	public void ValidateUser(String Pass, String User) throws Failure,
