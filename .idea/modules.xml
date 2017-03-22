@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidSaper.iml" filepath="$PROJECT_DIR$/AndroidSaper.iml" />
       <module fileurl="file://$PROJECT_DIR$/MultiSaper.iml" filepath="$PROJECT_DIR$/MultiSaper.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsaper/jsaper.iml" filepath="$PROJECT_DIR$/jsaper/jsaper.iml" />
